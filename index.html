@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            C89
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <style>
+            body{
+                background-color: dodgerblue;
+            }
+            div{
+                padding: 20px;
+                background-color: white;
+                margin-bottom: 10px;
+                border-radius: 10px;
+            }
+            button{
+                width: 80%;
+                background-color: greenyellow;
+            }
+            input{
+                width: 50%;
+            }
+            .container{
+                background-color: inherit;
+            }
+        </style>
+    </head>
+    <body>
+            <center>
+                <div class="container"></div>
+                    <h1>
+                        Login for Guess the Word
+                    </h1>
+                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-10 center-block">
+                        <h2>Player 1 Login</h2>
+                        <b>Username:</b><br>
+                        <input id="p1" placeholder="Player 1 name">
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-10 center-block">
+                        <h2>Player 2 Login</h2>
+                        <b>Username:</b><br>
+                        <input id="p2" placeholder="Player 2 name">
+                    </div>
+                    <button onclick="login()">Login</button>
+                </div>
+            </center>
+    </body>
+    <script>
+        var login = function(){
+            localStorage.setItem("playerNames", [document.getElementById("p1").value, document.getElementById("p2").value])
+            window.location = "play.html";
+        }
+    </script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            C90
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            #output{
+                border-radius: 15px;
+                border-top: 10px solid red;
+                background-color: white;
+                padding: 10px;
+            }
+            div{
+                width: 80%;
+            }
+        </style>
+    </head>
+    <body class="bg-success">
+        <center class="container">
+            <label id="p1s"></label><br>
+            <label id="p2s"></label><br>
+
+            <h1>Play Guess the Word</h1>
+
+            <label id="qt"></label><br>
+            <label id="at"></label><br>
+
+            <div id="output" class="bg-white"></div><br>
+
+            <b>Note: <span class="text-danger">Try adding words with more than five letters.</span></b><br><br>
+            <input type="text"  id="wordIn" class="form-control" placeholder="Type your word here..."><br>
+
+            <button class="btn btn-primary" onclick="send()">Send</button>
+        </center>
+    </body>
+    <script>
+        var qt = 0;
+        var scores = [0, 0];
+        var playerN = localStorage.getItem("playerNames").split(",");
+        var display = function(){
+            $("#p1s").html(`${playerN[0]}: ${scores[0]}`);
+            $("#p2s").html(`${playerN[1]}: ${scores[1]}`);
+
+            $("#qt").text(`Question Turn: ${playerN[qt]}`);
+            if(qt){
+                $("#at").html(`Answer Turn: ${playerN[0]}`);
+            }else{
+                $("#at").html(`Answer Turn: ${playerN[1]}`);
+            }
+        }
+
+        display();
+
+        var word;
+
+        var send = function(){
+            word = $("#wordIn").val();
+            var hiddenWord = word.replace(word.charAt(Math.floor(word.length/3)), "_").replace(word.charAt(Math.floor(word.length/3*2)), "_").replace(word.charAt(Math.floor(word.length-1)), "_");
+            $("#output").html(`Q. ${hiddenWord} ? <br> <input class="form-control" placeholder="Type your answer here..." id="wordGuess"> <br> <button onclick="check()" class="btn btn-primary">Check Answer</button>`);
+            $("#wordIn").val("");
+        }
+
+        var check = function(){
+            if($("#wordGuess").val().toLowerCase() === word.toLowerCase()){
+                if(qt){
+                    scores[0] ++;
+                }else{
+                    scores[1] ++;
+                }
+            }
+
+            if(qt){
+                qt = 0;
+            }else{
+                qt = 1;
+            }
+
+            $("#output").html("");
+            display();
+        }      
+    </script>
+</html>
